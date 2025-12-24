@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    background: blue;
+}
+
+.container {
+    width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #bbb;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    cursor: pointer;
+    background: #008cff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#dataOutput, #predictionOutput {
+    background: #eef4ff;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    display: none;
+    white-space: pre-wrap;
+}

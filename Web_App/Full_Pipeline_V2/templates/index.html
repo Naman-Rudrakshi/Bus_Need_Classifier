@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Need Classifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.js"></script>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-blue-100 to-green-200">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between h-16 px-6">
+            <div class="flex items-center space-x-4">
+                <!-- Logo placeholder -->
+                <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                <span class="font-bold text-lg">Bus Need Project</span>
+            </div>
+
+            <div class="flex space-x-4">
+                <button class="btn btn-ghost" onclick="showPage('about')">About</button>
+                <button class="btn btn-ghost" onclick="showPage('individual')">Individual Bus Need Predictor</button>
+                <button class="btn btn-ghost" onclick="showPage('heatmap')">District Bus Need Heatmap</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="pt-20 container mx-auto">
+        <!-- About Page -->
+        <section id="about" class="page">
+            <div class="max-w-3xl mx-auto p-6 bg-white border border-gray-300 shadow-inner rounded-lg mb-8">
+                <h1 class="text-2xl font-bold mb-4">About the Bus Need Classifier Project</h1>
+                <div class="p-4 bg-white border border-gray-300 shadow-inner rounded-lg text-gray-700">
+                    <p>
+                        This project aims to predict whether a student needs a school bus based on demographic information
+                        and location. Add your project description here.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Individual Bus Need Page -->
+        <section id="individual" class="page hidden">
+            <div class="max-w-4xl mx-auto p-6 bg-white border border-gray-300 shadow-inner rounded-lg mb-8">
+                <h1 class="text-2xl font-bold mb-6">Individual Bus Need Predictor</h1>
+
+                <!-- Grid container: 2x2 quadrants -->
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Top Left: Input Fields -->
+                    <div class="bg-white border border-gray-300 shadow-inner rounded-lg p-4">
+                        <h2 class="font-semibold mb-2">Enter Addresses</h2>
+                        <input id="home" placeholder="Home Address" class="input input-bordered w-full mb-2">
+                        <input id="school" placeholder="School Address" class="input input-bordered w-full">
+                    </div>
+
+                    <!-- Top Right: Generate Demographics -->
+                    <div class="bg-white border border-gray-300 shadow-inner rounded-lg p-4 flex flex-col items-center justify-center">
+                        <button id="getDataBtn" class="btn btn-primary mb-4 w-full">Generate Demographic Information</button>
+                        <div id="dataOutput" class="w-full bg-gray-100 p-2 rounded-lg whitespace-pre-wrap"></div>
+                    </div>
+
+                    <!-- Bottom Left: Map -->
+                    <div class="bg-white border border-gray-300 shadow-inner rounded-lg p-4 flex flex-col">
+                        <div id="map" class="h-64 w-full mb-2"></div>
+                        <button id="plotMapBtn" class="btn btn-secondary w-full">Plot on Map</button>
+                    </div>
+
+                    <!-- Bottom Right: Predict Bus Need -->
+                    <div class="bg-white border border-gray-300 shadow-inner rounded-lg p-4 flex flex-col items-center justify-center">
+                        <button id="predictBtn" class="btn btn-success mb-4 w-full">Predict Bus Need</button>
+                        <div id="predictionOutput" class="w-full bg-gray-100 p-2 rounded-lg whitespace-pre-wrap"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Heatmap Page Placeholder -->
+        <section id="heatmap" class="page hidden">
+            <div class="max-w-3xl mx-auto p-6 bg-white border border-gray-300 shadow-inner rounded-lg">
+                <h1 class="text-2xl font-bold mb-4">District Bus Need Heatmap</h1>
+                <p>Coming soon...</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/app.js"></script>
+
+
+</body>
+</html>

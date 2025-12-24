@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Need Project - SAAS DF FA25</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.js"></script>
+    <style>
+        /* Smooth drifting animation for background squares */
+        @keyframes drift {
+            from { background-position: 0 0, 0 0; }
+            to { background-position: 200px 0, 200px 0; }
+        }
+
+        .grid-overlay-animated {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            transform: rotate(65deg) scale(2.2);
+            background-image:
+                linear-gradient(black 5px, transparent 15px),
+                linear-gradient(90deg, black 5px, transparent 15px);
+            background-size: 5vw 5vw;
+            animation: drift 12s linear infinite;
+        }
+
+        .vignette-corners {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at top left, rgba(0, 0, 0, 1.5), transparent 80%),
+                radial-gradient(circle at bottom right, rgba(0, 0, 0, 1.5), transparent 50%),
+                radial-gradient(circle at top right, rgba(0, 0, 0, 0.4), transparent 10%),
+                radial-gradient(circle at bottom left, rgba(0, 0, 0, 0.4), transparent 10%);
+        }
+
+        /* Custom buttons for all inner page buttons */
+        .custom-btn {
+            background-color: #d3ff99; /* Tailwind yellow-400 */
+            color: black;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 5px #703102; /* embossed shadow */
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            position: relative;
+        }
+
+        .custom-btn:hover {
+            background-color: #ba8c19; /* slightly brighter yellow */
+        }
+
+        .custom-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px #582802; /* pressed down shadow smaller */
+        }
+    </style>
+</head>
+<body class="font-mono min-h-screen bg-gradient-to-br from-yellow-500 via-black-100 to-black-200 flex items-center justify-center">
+
+    <div class="grid-overlay-animated"></div>
+    <div class="vignette-corners"></div>
+
+    <!-- Navbar -->
+    <nav class="bg-black/80 shadow-md fixed w-full top-0 z-50 ">
+        <div class="container mx-auto flex items-center justify-between h-16 px-6">
+            <div class="flex items-center space-x-5">
+                <img src="https://icons.veryicon.com/png/o/education-technology/education-2/school-bus-6.png" 
+     alt="Bus Logo" 
+     class="w-15 h-12 object-cover filter invert">
+
+                <span class="font-bold text-lg text-white">Bus Need Project - SAAS DF FA25</span>
+            </div>
+            <div class="flex space-x-10">
+                <button class="btn btn-ghost text-white" onclick="showPage('about')">About</button>
+                <button class="btn btn-ghost text-white" onclick="showPage('individual')">Individual Bus Need Predictor</button>
+                <button class="btn btn-ghost text-white" onclick="showPage('heatmap')">Regional Bus Need Heatmap</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="w-full flex justify-center items-center pt-20">
+        <!-- About Page -->
+<section id="about" class="page flex justify-center items-center">
+    <div class="w-[40%] h-[70vh] p-6 bg-white/30 border border-white shadow-inner rounded-lg flex flex-col gap-4">
+        <h1 class="text-2xl font-bold mb-2 text-white">About the Bus Need Classifier Project</h1>
+
+        <!-- Top part: description -->
+        <div class="flex-none p-4 bg-white/80 border border-white rounded-lg text-black overflow-auto">
+            <p>
+                This was my first personal ML project, completed as part of SAAS DF FA25. The goal is to classify students and neighborhoods by their likelihood of needing a school bus, helping districts design bus routes that best meet student transportation needs. Data: 2017 National Household Travel Survey, U.S. Department of Transportation. Model: Random Forest Classifier. Metrics: See below for detailed model performance. Thank you to Brandon, Arnav, Avery, Sona, and the rest of DF for supporting this project. 
+            </p>
+        </div>
+
+        <!-- Metrics section -->
+        <div class="flex-1 p-4 bg-white/80 border border-white rounded-lg text-black overflow-auto flex flex-col gap-4">
+            <!-- Top: Accuracy and ROC AUCs -->
+            <div class="grid grid-cols-3 gap-4 text-center border-b border-gray-400 pb-2">
+                <div>Accuracy: <span class="font-semibold">0.7900</span></div>
+                <div>Train ROC AUC: <span class="font-semibold">0.9993</span></div>
+                <div>Test ROC AUC: <span class="font-semibold">0.8501</span></div>
+            </div>
+
+            <!-- Middle: metrics for class 0 and 1 -->
+            <div class="grid grid-cols-2 gap-4 border-b border-gray-400 pb-2 pt-2">
+                <!-- Class 0 -->
+                <div class="border-r border-gray-400 pr-2">
+                    <h3 class="font-semibold mb-1 text-center">Class 0</h3>
+                    <div class="grid grid-cols-2 gap-1">
+                        <div class="text-left">Precision:</div><div class="text-right">0.8579</div>
+                        <div class="text-left">Recall:</div><div class="text-right">0.8332</div>
+                        <div class="text-left">F1:</div><div class="text-right">0.8429</div>
+                    </div>
+                </div>
+
+                <!-- Class 1 -->
+                <div class="pl-2">
+                    <h3 class="font-semibold mb-1 text-center">Class 1</h3>
+                    <div class="grid grid-cols-2 gap-1">
+                        <div class="text-left">Precision:</div><div class="text-right">0.6373</div>
+                        <div class="text-left">Recall:</div><div class="text-right">0.6906</div>
+                        <div class="text-left">F1:</div><div class="text-right">0.6574</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom: Confusion Matrix -->
+            <div class="pt-2 text-center">
+                <h3 class="font-semibold mb-1">Confusion Matrix</h3>
+                <pre class="inline-block text-left">
+[[3043  609]
+ [ 491 1096]]
+                </pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        <!-- Individual Bus Need Page -->
+        <!-- Individual Bus Need Page -->
+<section id="individual" class="page hidden flex justify-center items-start">
+    <div class="w-[130vh] h-[80vh] p-6 bg-white/30 border border-white shadow-inner rounded-lg flex flex-row gap-6">
+
+        <!-- Left Column -->
+        <div class="flex flex-col gap-6 w-1/3">
+            <!-- Short top rectangle: Addresses -->
+            <div class="bg-white/20 border border-white rounded-lg p-4 flex flex-col">
+                <h2 class="font-semibold mb-2 text-black">Enter Addresses</h2>
+                <input id="home" placeholder="Home Address" class="input input-bordered w-full mb-2 bg-white/0 text-black rounded-lg border-2 border-black-400">
+                <input id="school" placeholder="School Address" class="input input-bordered w-full bg-white/0 text-black rounded-lg border-2 border-black-400">
+            </div>
+
+            <!-- Bottom box: Demographic info fills rest -->
+            <div class="bg-white/20 border border-white rounded-lg p-4 flex flex-col h-[calc(100%-10rem)]">
+                <button id="getDataBtn" class="custom-btn mb-4 w-full">Generate Demographic Information</button>
+                <div id="dataOutput" class="w-full bg-white p-2 rounded-lg text-black flex-grow overflow-y-auto">
+                    <!-- Scrollable demo data -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex flex-col gap-6 w-2/3">
+            <!-- Large map top -->
+            <div class="bg-white/20 border border-white rounded-lg p-4 flex flex-col flex-grow">
+                <div id="map" class="flex-grow mb-2"></div>
+                <button id="plotMapBtn" class="custom-btn w-full">Plot on Map</button>
+            </div>
+
+            <!-- Short bottom rectangle: Predict -->
+            <div class="bg-white/20 border border-white rounded-lg p-4 flex flex-col h-[150px]">
+                <button id="predictBtn" class="custom-btn mb-2 w-full">Predict Bus Need</button>
+                <div id="predictionOutput" class="w-full bg-white/80 p-2 rounded-lg text-black overflow-y-auto flex-grow">
+                    <!-- Predict output scrolls if content is long -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+        <!-- Heatmap Page -->
+        <section id="heatmap" class="page hidden flex justify-center items-center">
+            <div class="w-[100vh] h-[80vh] p-6 bg-white/30 border border-white shadow-inner rounded-lg flex flex-col">
+                <h1 class="text-2xl font-bold mb-4 text-white">District Bus Need Heatmap</h1>
+                <div class="flex-grow grid grid-cols-3 gap-4">
+                    <div class="col-span-1 p-4 bg-white/20 border border-white rounded-lg flex flex-col">
+                        <label class="block mb-2 font-medium text-white">School address</label>
+                        <input id="heat_school" class="input input-bordered w-full mb-2 bg-white/0 text-black rounded-lg border-2 border-black-400" placeholder="67 SAAS St, Berkeley, OH" />
+                        <label class="block mb-2 font-medium text-white">Radius (miles)</label>
+                        <input id="heat_radius" type="number" step="0.1" class="input input-bordered w-full mb-2 bg-white/0 text-black rounded-lg border-2 border-black-400" placeholder="2" />
+                        <button id="genHeatBtn" class="custom-btn w-full mb-2">Generate Heatmap</button>
+                        <button id="clearHeatBtn" class="custom-btn w-full">Clear Map</button>
+                    </div>
+                    <div class="col-span-2 p-0 bg-white/20 border border-white rounded-lg flex flex-col">
+                        <div id="heatmap_map" class="flex-grow w-full"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/chroma-js@2.4.2/chroma.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>
